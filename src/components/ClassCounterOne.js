@@ -5,7 +5,8 @@ class ClassCounterOne extends Component {
         super(props)
     
         this.state = {
-             count: 0
+             count: 0,
+             name: ''
         }
     }
 
@@ -13,13 +14,25 @@ class ClassCounterOne extends Component {
         document.title = `Clicked ${this.state.count} times`
     }
 
+    //we are conditionally updating the title only when the appropriate value changes which in THIS case, is the this.state.count
     componentDidUpdate(prevProps, prevState){
-        document.title = `Clicked ${this.state.count} times`
+        if(prevState.count !== this.state.count){
+            console.log('Updating document title')
+            document.title = `Clicked ${this.state.count} times`
+        }        
     }
     
     render() {
         return (
             <div>
+                <input 
+                type='text' 
+                value={this.state.name} 
+                onChange={e => {
+                    this.setState({ name: e.target.value })
+                    }} 
+                    />
+
                 <button onClick={() => this.setState({ count: this.state.count + 1})}>Click {this.state.count} times</button>
             </div>
         )
